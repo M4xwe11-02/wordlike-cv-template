@@ -235,8 +235,8 @@ Edit `style/cv-style.tex` to tune the whole resume:
 \setlength{\cvBodyAfter}{1.5pt}
 \setlength{\cvBulletAfter}{1.2pt}
 
-\newcommand{\cvSectionFont}{\Large}
-\newcommand{\cvHeadingTwoFont}{\large}
+\newcommand{\cvSectionFont}{\large}
+\newcommand{\cvHeadingTwoFont}{\fontsize{11.5pt}{13.5pt}\selectfont}
 \newcommand{\cvHeadingThreeFont}{\normalsize}
 \newcommand{\cvBodyFont}{\small}
 ```
