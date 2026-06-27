@@ -1,0 +1,187 @@
+% Word-Like CV Template
+% Centralized style layer. Edit this file to adjust the whole resume.
+
+\usepackage[empty]{fullpage}
+\usepackage{fontawesome5}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[normalem]{ulem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+\setmainfont[
+  BoldFont = lmroman10-bold.otf,
+  ItalicFont = lmroman10-italic.otf,
+  BoldItalicFont = lmroman10-bolditalic.otf
+]{lmroman10-regular.otf}
+
+\setCJKmainfont[
+  BoldFont = FandolSong-Bold.otf,
+  ItalicFont = FandolKai-Regular.otf
+]{FandolSong-Regular.otf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{8pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.65in}
+\addtolength{\textheight}{1.15in}
+
+\urlstyle{same}
+\setlength{\tabcolsep}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\raggedbottom
+\raggedright
+\sloppy
+
+% -------------------------
+% Global style parameters
+% -------------------------
+\definecolor{CvBlack}{RGB}{0,0,0}
+\definecolor{CvPlaceholder}{RGB}{245,245,245}
+\definecolor{CvPlaceholderBorder}{RGB}{150,150,150}
+
+\newlength{\cvSectionAfter}
+\newlength{\cvSectionBefore}
+\newlength{\cvHeadingTwoAfter}
+\newlength{\cvHeadingThreeAfter}
+\newlength{\cvBodyAfter}
+\newlength{\cvBulletAfter}
+\newlength{\cvSectionRuleGap}
+\newlength{\cvBulletLeft}
+\newlength{\cvHeadingRightWidth}
+
+\setlength{\cvSectionAfter}{2.5pt}
+\setlength{\cvSectionBefore}{4pt}
+\setlength{\cvHeadingTwoAfter}{1.5pt}
+\setlength{\cvHeadingThreeAfter}{1.5pt}
+\setlength{\cvBodyAfter}{1.5pt}
+\setlength{\cvBulletAfter}{1.2pt}
+\setlength{\cvSectionRuleGap}{1.5pt}
+\setlength{\cvBulletLeft}{1.55em}
+\setlength{\cvHeadingRightWidth}{0.30\textwidth}
+
+\newcommand{\cvNameFont}{\fontsize{26pt}{30pt}\selectfont\bfseries}
+\newcommand{\cvContactFont}{\fontsize{11pt}{13pt}\selectfont}
+\newcommand{\cvSectionFont}{\Large}
+\newcommand{\cvHeadingTwoFont}{\large}
+\newcommand{\cvHeadingThreeFont}{\normalsize}
+\newcommand{\cvBodyFont}{\small}
+\newcommand{\cvSmallBodyFont}{\footnotesize}
+
+% -------------------------
+% Shared helpers
+% -------------------------
+\newcommand{\seticon}[1]{\textcolor{CvBlack}{\csname #1\endcsname}}
+\newcommand{\cvAfter}[1]{\par\vspace{#1}}
+\newcommand{\cvSep}{\hspace{0.7em}|\hspace{0.7em}}
+
+\newcommand{\cvImageOrPlaceholder}[3]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=#2]{#1}%
+  }{%
+    \fcolorbox{CvPlaceholderBorder}{CvPlaceholder}{%
+      \parbox[c][#2][c]{#2}{\centering\cvSmallBodyFont #3}%
+    }%
+  }%
+}
+
+% \cvHeader{left image path}{name}{contact line}{right image path}
+\newcommand{\cvHeader}[4]{%
+  \begin{tabularx}{\textwidth}{@{}m{2.7cm}X m{2.7cm}@{}}
+    \centering\cvImageOrPlaceholder{#1}{2.35cm}{Logo}
+    &
+    \centering
+    {\cvNameFont #2}\par
+    \vspace{0.85em}
+    {\cvContactFont #3}
+    &
+    \centering\cvImageOrPlaceholder{#4}{2.35cm}{Photo}
+  \end{tabularx}
+  \cvAfter{8pt}
+}
+
+% -------------------------
+% Word-like semantic blocks
+% -------------------------
+\newcommand{\cvSection}[1]{%
+  \cvAfter{0pt}%
+  {\cvSectionFont #1}\par
+  \vspace{\cvSectionRuleGap}%
+  {\color{CvBlack}\hrule height 0.45pt}%
+  \cvAfter{\cvSectionAfter}%
+}
+
+\newcommand{\cvSpacedSection}[1]{%
+  \cvAfter{\cvSectionBefore}%
+  \cvSection{#1}%
+}
+
+\newcommand{\cvHeadingTwo}[2]{%
+  {\cvHeadingTwoFont
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      #1 & #2 \\
+    \end{tabular*}%
+  }%
+  \cvAfter{\cvHeadingTwoAfter}%
+}
+
+\newcommand{\cvHeadingThree}[2]{%
+  {\cvHeadingThreeFont
+    \ifthenelse{\equal{#2}{}}{%
+      \parbox[t]{\textwidth}{#1}%
+    }{%
+      \begin{tabular*}{\textwidth}{@{}p{\dimexpr\textwidth-\cvHeadingRightWidth-1em\relax}@{\extracolsep{\fill}}r@{}}
+        #1 & #2 \\
+      \end{tabular*}%
+    }%
+  }%
+  \cvAfter{\cvHeadingThreeAfter}%
+}
+
+\newcommand{\cvBodyText}[1]{%
+  {\cvBodyFont #1\par}%
+  \cvAfter{\cvBodyAfter}%
+}
+
+\newcommand{\cvInlineLabel}[2]{%
+  \cvBodyText{\textbf{#1}: #2}%
+}
+
+\newcommand{\cvInlineLabelZh}[2]{%
+  \cvBodyText{\textbf{#1}：#2}%
+}
+
+\newcommand{\cvManualBreak}{\par\vspace{\cvBodyAfter}}
+
+\newenvironment{cvBulletList}{%
+  \begin{itemize}[
+    leftmargin=\cvBulletLeft,
+    label=\textbullet,
+    labelsep=0.45em,
+    itemsep=\cvBulletAfter,
+    parsep=0pt,
+    topsep=0pt,
+    partopsep=0pt
+  ]%
+  \cvBodyFont
+}{%
+  \end{itemize}%
+  \cvAfter{\cvBodyAfter}%
+}
+
+\newcommand{\cvBullet}[1]{\item #1}
+\newcommand{\cvPlainBullet}[1]{\item[]\hspace*{-\cvBulletLeft}#1}
