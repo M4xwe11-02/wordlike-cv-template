@@ -11,11 +11,11 @@ zh: $(TARGET_ZH).pdf
 
 en: $(TARGET_EN).pdf
 
-$(TARGET_ZH).pdf: $(TARGET_ZH).tex style/cv-style.tex content/zh/*.tex
+$(TARGET_ZH).pdf: $(TARGET_ZH).tex style/resume-style.tex content/zh/*.tex
 	$(LATEX) $(LATEX_FLAGS) $(TARGET_ZH).tex
 	$(LATEX) $(LATEX_FLAGS) $(TARGET_ZH).tex
 
-$(TARGET_EN).pdf: $(TARGET_EN).tex style/cv-style.tex content/en/*.tex
+$(TARGET_EN).pdf: $(TARGET_EN).tex style/resume-style.tex content/en/*.tex
 	$(LATEX) $(LATEX_FLAGS) $(TARGET_EN).tex
 	$(LATEX) $(LATEX_FLAGS) $(TARGET_EN).tex
 

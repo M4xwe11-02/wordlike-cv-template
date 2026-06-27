@@ -1,4 +1,4 @@
-# Word-Like CV Template
+# Word-Like Resume Template
 
 A bilingual XeLaTeX resume template designed around a Word-like editing model:
 write your resume by semantic blocks, then tune typography and spacing from one
@@ -14,7 +14,7 @@ layout system explicit.
 - **Word-like hierarchy**: level 1 sections, level 2 headings, level 3 headings,
   body paragraphs, and bullet lists.
 - **Centralized style control**: fonts, font sizes, section spacing, body
-  spacing, and bullet spacing live in `style/cv-style.tex`.
+  spacing, and bullet spacing live in `style/resume-style.tex`.
 - **Bilingual examples**: Chinese and English examples share the same style
   system.
 - **Modular content**: add, remove, or reorder resume modules with `\input`.
@@ -81,11 +81,11 @@ make clean
 ## Project Structure
 
 ```text
-wordlike-cv-template/
+wordlike-resume-template/
   resume-zh.tex              # Chinese entrypoint
   resume-en.tex              # English entrypoint
   style/
-    cv-style.tex             # Central style system and semantic commands
+    resume-style.tex         # Central style system and semantic commands
   content/
     zh/                      # Chinese example modules
     en/                      # English example modules
@@ -111,14 +111,14 @@ The main entry files only decide module order:
 Content modules should describe structure, not layout. For example:
 
 ```tex
-\cvSpacedSection{Projects}
+\resumeSpacedSection{Projects}
 
-\cvHeadingThree{\textbf{Example Collaboration Platform} \cvSep \href{https://example.com}{\uline{Demo}}}{}
-\cvInlineLabel{Overview}{A web application for team collaboration, task tracking, and role-based access control.}
-\begin{cvBulletList}
-  \cvBullet{Separated user, task, notification, and audit modules with a layered architecture.}
-  \cvBullet{Used caching and asynchronous messaging to optimize high-frequency paths.}
-\end{cvBulletList}
+\resumeHeadingThree{\textbf{Example Collaboration Platform} \resumeSep \href{https://example.com}{\uline{Demo}}}{}
+\resumeInlineLabel{Overview}{A web application for team collaboration, task tracking, and role-based access control.}
+\begin{resumeBulletList}
+  \resumeBullet{Separated user, task, notification, and audit modules with a layered architecture.}
+  \resumeBullet{Used caching and asynchronous messaging to optimize high-frequency paths.}
+\end{resumeBulletList}
 ```
 
 Avoid local layout commands in content files:
@@ -128,7 +128,7 @@ Avoid local layout commands in content files:
 - Avoid local font-size fixes unless the content itself needs emphasis.
 
 If a layout decision should affect the whole resume, change
-`style/cv-style.tex`.
+`style/resume-style.tex`.
 
 ## Semantic API
 
@@ -136,15 +136,15 @@ Use these commands in content files:
 
 | Command | Purpose |
 | --- | --- |
-| `\cvSection{title}` | Level 1 section title with rule |
-| `\cvSpacedSection{title}` | Level 1 section title with extra top spacing |
-| `\cvHeadingTwo{left}{right}` | Level 2 heading, typically school/company |
-| `\cvHeadingThree{left}{right}` | Level 3 heading, typically project/role |
-| `\cvBodyText{text}` | Body paragraph |
-| `\cvInlineLabel{label}{text}` | English label + body paragraph |
-| `\cvInlineLabelZh{标签}{正文}` | Chinese label + body paragraph |
-| `cvBulletList` | Standard bullet list environment |
-| `\cvBullet{text}` | Bullet item |
+| `\resumeSection{title}` | Level 1 section title with rule |
+| `\resumeSpacedSection{title}` | Level 1 section title with extra top spacing |
+| `\resumeHeadingTwo{left}{right}` | Level 2 heading, typically school/company |
+| `\resumeHeadingThree{left}{right}` | Level 3 heading, typically project/role |
+| `\resumeBodyText{text}` | Body paragraph |
+| `\resumeInlineLabel{label}{text}` | English label + body paragraph |
+| `\resumeInlineLabelZh{标签}{正文}` | Chinese label + body paragraph |
+| `resumeBulletList` | Standard bullet list environment |
+| `\resumeBullet{text}` | Bullet item |
 
 Recommended hierarchy:
 
@@ -175,14 +175,14 @@ Add it to `resume-zh.tex`:
 Example Chinese module:
 
 ```tex
-\cvSpacedSection{论文与开源}
+\resumeSpacedSection{论文与开源}
 
-\cvHeadingThree{\textbf{Example Paper Title} \cvSep \href{https://example.com}{\uline{Link}}}{}
-\cvInlineLabelZh{简介}{这里写正文。自动换行使用正文行距，模块间距由样式层控制。}
-\begin{cvBulletList}
-  \cvBullet{这里写第一条贡献。}
-  \cvBullet{这里写第二条贡献。}
-\end{cvBulletList}
+\resumeHeadingThree{\textbf{Example Paper Title} \resumeSep \href{https://example.com}{\uline{Link}}}{}
+\resumeInlineLabelZh{简介}{这里写正文。自动换行使用正文行距，模块间距由样式层控制。}
+\begin{resumeBulletList}
+  \resumeBullet{这里写第一条贡献。}
+  \resumeBullet{这里写第二条贡献。}
+\end{resumeBulletList}
 ```
 
 Create a new English module:
@@ -200,14 +200,14 @@ Add it to `resume-en.tex`:
 Example English module:
 
 ```tex
-\cvSpacedSection{Publications}
+\resumeSpacedSection{Publications}
 
-\cvHeadingThree{\textbf{Example Paper Title} \cvSep \href{https://example.com}{\uline{Link}}}{}
-\cvInlineLabel{Summary}{Write a short body paragraph here. Automatic wrapping uses body line spacing.}
-\begin{cvBulletList}
-  \cvBullet{Describe the first contribution.}
-  \cvBullet{Describe the second contribution.}
-\end{cvBulletList}
+\resumeHeadingThree{\textbf{Example Paper Title} \resumeSep \href{https://example.com}{\uline{Link}}}{}
+\resumeInlineLabel{Summary}{Write a short body paragraph here. Automatic wrapping uses body line spacing.}
+\begin{resumeBulletList}
+  \resumeBullet{Describe the first contribution.}
+  \resumeBullet{Describe the second contribution.}
+\end{resumeBulletList}
 ```
 
 Useful optional modules:
@@ -225,20 +225,20 @@ To remove a module, delete or comment out its `\input{...}` line.
 
 ## Style Customization
 
-Edit `style/cv-style.tex` to tune the whole resume:
+Edit `style/resume-style.tex` to tune the whole resume:
 
 ```tex
-\setlength{\cvSectionAfter}{2.5pt}
-\setlength{\cvSectionBefore}{4pt}
-\setlength{\cvHeadingTwoAfter}{1.5pt}
-\setlength{\cvHeadingThreeAfter}{1.5pt}
-\setlength{\cvBodyAfter}{1.5pt}
-\setlength{\cvBulletAfter}{1.2pt}
+\setlength{\resumeSectionAfter}{2.5pt}
+\setlength{\resumeSectionBefore}{4pt}
+\setlength{\resumeHeadingTwoAfter}{1.5pt}
+\setlength{\resumeHeadingThreeAfter}{1.5pt}
+\setlength{\resumeBodyAfter}{1.5pt}
+\setlength{\resumeBulletAfter}{1.2pt}
 
-\newcommand{\cvSectionFont}{\large}
-\newcommand{\cvHeadingTwoFont}{\fontsize{11.5pt}{13.5pt}\selectfont}
-\newcommand{\cvHeadingThreeFont}{\normalsize}
-\newcommand{\cvBodyFont}{\small}
+\newcommand{\resumeSectionFont}{\large}
+\newcommand{\resumeHeadingTwoFont}{\fontsize{11.5pt}{13.5pt}\selectfont}
+\newcommand{\resumeHeadingThreeFont}{\normalsize}
+\newcommand{\resumeBodyFont}{\small}
 ```
 
 Spacing model:
@@ -246,7 +246,7 @@ Spacing model:
 - Automatic line wrapping uses the font's line height.
 - Manual paragraph/module separation is controlled by the relevant `After`
   length.
-- Bullet spacing is controlled by `\cvBulletAfter`.
+- Bullet spacing is controlled by `\resumeBulletAfter`.
 
 This mirrors a Word-style workflow: change the style once, and all matching
 content updates together.
@@ -289,7 +289,7 @@ Default font configuration:
 ]{FandolSong-Regular.otf}
 ```
 
-To use system fonts, edit the font block in `style/cv-style.tex`:
+To use system fonts, edit the font block in `style/resume-style.tex`:
 
 ```tex
 \setmainfont{Times New Roman}
@@ -304,7 +304,7 @@ To use system fonts, edit the font block in `style/cv-style.tex`:
 样式系统：
 
 - 内容文件只写一级标题、二级标题、三级标题、正文和列表。
-- 字号、字体、段后距、列表间距集中在 `style/cv-style.tex`。
+- 字号、字体、段后距、列表间距集中在 `style/resume-style.tex`。
 - 新增模块只需要新建 `content/zh/*.tex` 或 `content/en/*.tex`，再在入口文件
   中添加 `\input{...}`。
 - 默认不包含个人照片、校徽、真实学校、真实公司或真实项目。
@@ -335,13 +335,13 @@ Before publishing your own fork, check:
 
 Contributions are welcome.
 
-Please keep the project focused on a clean, Word-like semantic CV editing model.
+Please keep the project focused on a clean, Word-like semantic resume editing model.
 
 Guidelines:
 
 - Keep examples generic and reusable.
 - Do not add personal resumes, real photos, or real organization logos.
-- Put layout, typography, and spacing changes in `style/cv-style.tex`.
+- Put layout, typography, and spacing changes in `style/resume-style.tex`.
 - Keep content modules semantic and easy to edit.
 - Run `make zh` and `make en` before opening a pull request.
 

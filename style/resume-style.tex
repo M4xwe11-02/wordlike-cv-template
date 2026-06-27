@@ -1,0 +1,188 @@
+% Word-Like Resume Template
+% Centralized style layer. Edit this file to adjust the whole resume.
+
+\usepackage[empty]{fullpage}
+\usepackage{fix-cm}
+\usepackage{fontawesome5}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[normalem]{ulem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+\setmainfont[
+  BoldFont = lmroman10-bold.otf,
+  ItalicFont = lmroman10-italic.otf,
+  BoldItalicFont = lmroman10-bolditalic.otf
+]{lmroman10-regular.otf}
+
+\setCJKmainfont[
+  BoldFont = FandolSong-Bold.otf,
+  ItalicFont = FandolKai-Regular.otf
+]{FandolSong-Regular.otf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{8pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.65in}
+\addtolength{\textheight}{1.15in}
+
+\urlstyle{same}
+\setlength{\tabcolsep}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\raggedbottom
+\raggedright
+\sloppy
+
+% -------------------------
+% Global style parameters
+% -------------------------
+\definecolor{ResumeBlack}{RGB}{0,0,0}
+\definecolor{ResumePlaceholder}{RGB}{245,245,245}
+\definecolor{ResumePlaceholderBorder}{RGB}{150,150,150}
+
+\newlength{\resumeSectionAfter}
+\newlength{\resumeSectionBefore}
+\newlength{\resumeHeadingTwoAfter}
+\newlength{\resumeHeadingThreeAfter}
+\newlength{\resumeBodyAfter}
+\newlength{\resumeBulletAfter}
+\newlength{\resumeSectionRuleGap}
+\newlength{\resumeBulletLeft}
+\newlength{\resumeHeadingRightWidth}
+
+\setlength{\resumeSectionAfter}{2.5pt}
+\setlength{\resumeSectionBefore}{4pt}
+\setlength{\resumeHeadingTwoAfter}{1.5pt}
+\setlength{\resumeHeadingThreeAfter}{1.5pt}
+\setlength{\resumeBodyAfter}{1.5pt}
+\setlength{\resumeBulletAfter}{1.2pt}
+\setlength{\resumeSectionRuleGap}{1.5pt}
+\setlength{\resumeBulletLeft}{1.55em}
+\setlength{\resumeHeadingRightWidth}{0.30\textwidth}
+
+\newcommand{\resumeNameFont}{\fontsize{26pt}{30pt}\selectfont\bfseries}
+\newcommand{\resumeContactFont}{\fontsize{11pt}{13pt}\selectfont}
+\newcommand{\resumeSectionFont}{\large}
+\newcommand{\resumeHeadingTwoFont}{\fontsize{11.5pt}{13.5pt}\selectfont}
+\newcommand{\resumeHeadingThreeFont}{\normalsize}
+\newcommand{\resumeBodyFont}{\small}
+\newcommand{\resumeSmallBodyFont}{\footnotesize}
+
+% -------------------------
+% Shared helpers
+% -------------------------
+\newcommand{\seticon}[1]{\textcolor{ResumeBlack}{\csname #1\endcsname}}
+\newcommand{\resumeAfter}[1]{\par\vspace{#1}}
+\newcommand{\resumeSep}{\hspace{0.7em}|\hspace{0.7em}}
+
+\newcommand{\resumeImageOrPlaceholder}[3]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=#2]{#1}%
+  }{%
+    \fcolorbox{ResumePlaceholderBorder}{ResumePlaceholder}{%
+      \parbox[c][#2][c]{#2}{\centering\resumeSmallBodyFont #3}%
+    }%
+  }%
+}
+
+% \resumeHeader{left image path}{name}{contact line}{right image path}
+\newcommand{\resumeHeader}[4]{%
+  \begin{tabularx}{\textwidth}{@{}m{2.7cm}X m{2.7cm}@{}}
+    \centering\resumeImageOrPlaceholder{#1}{2.35cm}{Logo}
+    &
+    \centering
+    {\resumeNameFont #2}\par
+    \vspace{0.85em}
+    {\resumeContactFont #3}
+    &
+    \centering\resumeImageOrPlaceholder{#4}{2.35cm}{Photo}
+  \end{tabularx}
+  \resumeAfter{8pt}
+}
+
+% -------------------------
+% Word-like semantic blocks
+% -------------------------
+\newcommand{\resumeSection}[1]{%
+  \resumeAfter{0pt}%
+  {\resumeSectionFont #1}\par
+  \vspace{\resumeSectionRuleGap}%
+  {\color{ResumeBlack}\hrule height 0.45pt}%
+  \resumeAfter{\resumeSectionAfter}%
+}
+
+\newcommand{\resumeSpacedSection}[1]{%
+  \resumeAfter{\resumeSectionBefore}%
+  \resumeSection{#1}%
+}
+
+\newcommand{\resumeHeadingTwo}[2]{%
+  {\resumeHeadingTwoFont
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      #1 & #2 \\
+    \end{tabular*}%
+  }%
+  \resumeAfter{\resumeHeadingTwoAfter}%
+}
+
+\newcommand{\resumeHeadingThree}[2]{%
+  {\resumeHeadingThreeFont
+    \ifthenelse{\equal{#2}{}}{%
+      \parbox[t]{\textwidth}{#1}%
+    }{%
+      \begin{tabular*}{\textwidth}{@{}p{\dimexpr\textwidth-\resumeHeadingRightWidth-1em\relax}@{\extracolsep{\fill}}r@{}}
+        #1 & #2 \\
+      \end{tabular*}%
+    }%
+  }%
+  \resumeAfter{\resumeHeadingThreeAfter}%
+}
+
+\newcommand{\resumeBodyText}[1]{%
+  {\resumeBodyFont #1\par}%
+  \resumeAfter{\resumeBodyAfter}%
+}
+
+\newcommand{\resumeInlineLabel}[2]{%
+  \resumeBodyText{\textbf{#1}: #2}%
+}
+
+\newcommand{\resumeInlineLabelZh}[2]{%
+  \resumeBodyText{\textbf{#1}：#2}%
+}
+
+\newcommand{\resumeManualBreak}{\par\vspace{\resumeBodyAfter}}
+
+\newenvironment{resumeBulletList}{%
+  \begin{itemize}[
+    leftmargin=\resumeBulletLeft,
+    label=\textbullet,
+    labelsep=0.45em,
+    itemsep=\resumeBulletAfter,
+    parsep=0pt,
+    topsep=0pt,
+    partopsep=0pt
+  ]%
+  \resumeBodyFont
+}{%
+  \end{itemize}%
+  \resumeAfter{\resumeBodyAfter}%
+}
+
+\newcommand{\resumeBullet}[1]{\item #1}
+\newcommand{\resumePlainBullet}[1]{\item[]\hspace*{-\resumeBulletLeft}#1}
